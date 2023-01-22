@@ -22,7 +22,9 @@ python main.py
 
 ## Installing
 
-I will make a script to install all of this with one command soon(tm)
+```
+bash install.bash
+```
 
 ## Directory Structure
 ```
