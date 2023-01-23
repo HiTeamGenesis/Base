@@ -1,26 +1,41 @@
 #include <SoftwareSerial.h>
 
-#define button 5
+#define LED 13
 
-SoftwareSerial lora(2, 3);
+String incomingString;
 
-String lora_RX_address = "1";   //enter Lora RX address
+SoftwareSerial lora(19,18);
 
 void setup()
 {
-  pinMode(button, INPUT_PULLUP);
+  pinMode(LED, OUTPUT);
   Serial.begin(9600);
   lora.begin(9600);
+  lora.setTimeout(500);
 }
 
 void loop()
 {
-  if (digitalRead(button) == LOW) {
-    lora.println("AT+SEND=" + lora_RX_address + ",2,LO"); // AT+SEND=1,2,LO
-    delay(1000);
-  } 
-  else {
-    lora.println("AT+SEND=" + lora_RX_address + ",2,HI"); // AT+SEND=1,2,HI
-    delay(1000);
+  if (lora.available()) {
+
+    incomingString = lora.readString();
+    Serial.println(incomingString);
+
+    char dataArray[30]; 
+    incomingString.toCharArray(dataArray,30);
+    char* data = strtok(dataArray, ",");
+    data = strtok(NULL, ",");
+    data = strtok(NULL, ",");
+    Serial.println(data);
+    
+    if (strcmp(data,"HI") == 0) {
+      digitalWrite(LED, LOW);
+      delay(50);
+    }
+
+    if (strcmp(data,"LO") == 0) {
+      digitalWrite(LED, HIGH);
+      delay(50);
+    }
   }
 }
