@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AutonomousPage from "./components/AutonomousPage.svelte";
 	import DefaultPage from "./components/DefaultPage.svelte";
 import Menu from "./components/Menu.svelte";
 	import QuickInfo from "./components/QuickInfo.svelte";
@@ -19,6 +20,8 @@ import Menu from "./components/Menu.svelte";
 
 		{#if current_screen == HomeScreen.DEFAULT}
 			<DefaultPage></DefaultPage>
+		{:else if current_screen == HomeScreen.AUTONOMOUS}
+			<AutonomousPage></AutonomousPage>
 		{/if}
 	</div>
 </main>
