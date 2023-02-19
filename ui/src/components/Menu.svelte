@@ -65,7 +65,7 @@
 
 <style>
     main {
-        width: 30vw;
+        width: 100%;
         min-height: 100vh;
         background-color: #161616;
         display: flex;

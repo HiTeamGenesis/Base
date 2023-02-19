@@ -1,78 +1,61 @@
 <script>
   import CoordinateInput from './CoordinateInput.svelte';
-  import {writable} from 'svelte/store'
-  import 'leaflet/dist/leaflet.css'  
-  import * as L from 'leaflet';
+  import {writable} from 'svelte/store';
+  import 'leaflet/dist/leaflet.css';
+  import {Marker, LeafletMap, TileLayer} from 'svelte-leafletjs';
+
   let map;
-  let coordinates = writable([])
+
+  let coordinates = writable([]);
   let center = [39.3210, -111.0937]
+  let zoom = 10;
 
-  let markers = coordinates
+  let markers = coordinates;
 
-  function createMap(container) {
-    let m = L.map(container).setView([39.3210, -111.0937], 8);
-     L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-      {
-        maxZoom: 14,
-      }
-    ).addTo(m);
-
-    return m
-  }  
-
-  function markerIcon() {
-    let html = `<div class="map-marker"> <div> <svg style="width:30px;height:30px" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg> </div></div>`
-    return L.divIcon({
-      html, className:"map-marker"
-    })
+  let mapOptions = {
+    center, zoom
   }
 
-  function createMarker(loc) {
-    const icon = markerIcon();
-    const marker = L.marker(loc, {icon});
-    return marker
+  const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+  const tileLayerOptions = {
+    minZoom: 0,
+    maxZoom: 20,
+    maxNativeZoom: 19,
+    attribution: "© OpenStreetMap contributors",
   }
 
-  let markerLayers
-
-  function mapAction(container) {
-    map = createMap(container);
-    markerLayers = L.layerGroup()
-    for(let location of $markers) {
-      let m = createMarker(location)
-      markerLayers.addLayer(m)
-    }
-    markerLayers.addTo(map)
-    return {
-      destroy: () => {
-        map.remove()
-      }
-    }
+  function deleteMarker(coord) {
+    const index = $markers.indexOf(coord)
+    $markers.splice(index, 1)
+    $markers = $markers
   }
-
 
 </script>
 
-<svelte:head>
-   <!-- In the REPL you need to do this. In a normal Svelte app, use a CSS Rollup plugin and import it from the leaflet package. -->
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-</svelte:head>
 
 <main>
   <div class="map-container">
-    <div id="map" use:mapAction></div>
+    <div id="map">
+      <LeafletMap bind:this={map} options={mapOptions}>
+        <TileLayer url={tileUrl} options={tileLayerOptions}/>
+        {#each $markers as coord}
+          <Marker latLng={coord} />
+        {/each}
+      </LeafletMap>  
+    </div>
     <div class="map-input">
+      <h1>Coordinates</h1>
+      <CoordinateInput coordinates={coordinates} center={center}/>
       <div class="coords">
-        {#each $coordinates as coord, index}
-          <p>{index + 1} | LAT: {coord[0]} / LNG: {coord[1]}</p>
-        {:else}
-          <p>Insert a new coordinate</p>
+        {#each $markers as coord}
+        <div class="coordItem">
+          <p>LAT: {coord[0]} | LNG: {coord[1]}</p>
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <img on:click={(e) => deleteMarker(coord)} src="/delete.svg" alt="delete-icon"/>
+        </div>
         {/each}
       </div>
-      <CoordinateInput coordinates={coordinates}/>
     </div>
   </div>
   <div class="cam-container">
@@ -87,10 +70,40 @@
     width: 100%;
     height: 50vh;
   }
-  .coords p {
+
+  .map-input h1 {
     color: white;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
+
+  .coords {
+    margin-top: 20px;
+  }
+
+  .coordItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 4px;
+  }
+
+  .coordItem p {
+    color: white;
+    font-size: 18px;
+  }
+
+  .coordItem img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .coordItem img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+
   .map-input {
     width: 100%;
     display: flex;
@@ -109,4 +122,5 @@
     height: 45vh;
     background-color: rgb(54, 54, 54);
   }
+
 </style>
