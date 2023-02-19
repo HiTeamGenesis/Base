@@ -3,8 +3,6 @@
 </script>
 
 <main>
-
-    <div class="info-list">
         <div class="info">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
@@ -34,34 +32,27 @@
               </svg>
             <p>Sensors: <span class="good">ALL GOOD</span></p>
         </div>
-    </div>
 
     <button class="off">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
         </svg>
 
-        <p>POWER OFF</p>
+        <p>OFF</p>
     </button>
 
 </main>
 
 <style>
     main{
-        width: 85vw;
+        max-width: 100%;
         height: 5vh;
         background-color: #161616;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
     }
 
-    .info-list{
-        display: flex;
-        flex-direction: row;
-        width: 90%;        
-        height: 100%;
-        align-items: center;
-    }
 
     .info{
         display: flex;
@@ -99,11 +90,10 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        padding: 0 8px;
         background-color: #2D2D2D;
         border: none;
-        width: 15%;
         align-items: center;
-        text-align: center;
         cursor: pointer;
     }
 
