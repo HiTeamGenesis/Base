@@ -3,6 +3,7 @@
   import {writable} from 'svelte/store';
   import 'leaflet/dist/leaflet.css';
   import {Marker, LeafletMap, TileLayer} from 'svelte-leafletjs';
+  import LeftMenu from './LeftMenu.svelte';
 
   let map;
 
@@ -34,7 +35,8 @@
 </script>
 
 
-<main>
+<div class="autonomus">
+  <LeftMenu />
   <div class="map-container">
     <div id="map">
       <LeafletMap bind:this={map} options={mapOptions}>
@@ -44,6 +46,9 @@
         {/each}
       </LeafletMap>  
     </div>
+  </div>
+
+  <!-- C -->
     <div class="map-input">
       <h1>Coordinates</h1>
       <CoordinateInput coordinates={coordinates} center={center}/>
@@ -56,20 +61,38 @@
         </div>
         {/each}
       </div>
+      <div class="stop-btn">
+        STOP
+      </div>
     </div>
-  </div>
-  <div class="cam-container">
-    <h1>camera</h1>
-  </div>
-</main>
+</div>
 
 <style>
-  .map-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* CONTAINER */
+  .autonomus {
     width: 100%;
     height: 50vh;
+    display: grid;
+    grid-template-columns: .2fr .6fr .2fr;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2rem;
   }
+
+  .map-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .map-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    overflow-y: scroll;
+  }
+  #map {height: 100%; width: 100%;}
 
   .map-input h1 {
     color: white;
@@ -102,25 +125,6 @@
   .coordItem img:hover {
     cursor: pointer;
     transform: scale(1.05);
-  }
-
-  .map-input {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 0;
-    overflow-y: scroll;
-  }
-  #map {height: 100%; width: 100%;}
-
-  .cam-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 45vh;
-    background-color: rgb(54, 54, 54);
   }
 
 </style>
