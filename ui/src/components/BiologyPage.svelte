@@ -1,4 +1,6 @@
 <script>
+  import LeftMenu from "./LeftMenu.svelte";
+
   let firstTime = true
   let isFinished = false
   let isTesting = true
@@ -8,145 +10,126 @@
   {"step": "3", "description": "La muestra está siendo transferida a la celda de cuarzo #", "short": "La muestra se transfiere a celda de cuarzo"},
   {"step": "4", "description": "Leyendo la onda de 255nm","short": "Se lee la onda de 255nm"},
   {"step": "5", "description": "Leyendo onda de 280nm", "short": "Se lee la onda de 280nm"},
-  {"step": "6", "description": "Mostrando índice UV para las ondas", "short": "Se muestra el indice UV para las ondas"}]
-
-  function startProcess() {
-    firstTime = false;
-    const intervalId = setInterval(() => {
-      STEP_INDEX += 1
-    }, 3000)
-
-    if (STEP_INDEX >= 6) {
-      isWorking = false;
-      isFinished = true;
-      STEP_INDEX = -1
-      clearInterval(intervalId)
-      return;
-    }
-  
-    if (isTesting) {
-      STEP_INDEX += 1
-      isFinished = false;
-    }
-
-  }
+  {"step": "6", "description": "Mostrando índice UV para las ondas", "short": "Se muestra el indice UV para las ondas"}];
 
 </script>
 
-<main class="steps">
-  <div class="steps-current">
-  {#if firstTime}
-    <p>Start process</p>
-    <button on:click={startProcess}>Go</button>
-  {:else if isFinished && STEP_INDEX < 6}
-    <p>Proccess has finished</p>
-    <button on:click={startProcess}>Restart</button>
-  {:else if STEP_INDEX < 6}
-    <p>{`Step: ${STEPS[STEP_INDEX].step}`}</p>
-    <p>{STEPS[STEP_INDEX].description}</p>
-  {/if}
+<div class="biology">
+  <LeftMenu />
+  <div class="biology-arms">
+    <div class="biology-arms-item">CAM ARM</div>
+    <div class="biology-arms-item">MAIN ARM</div>
   </div>
-  <div class="steps-list">
-    {#each STEPS as step}
-      {#if STEP_INDEX != -1 && STEP_INDEX < 6}
-      <div class="steps-list-item {STEP_INDEX + 1  > parseInt(step.step) ? 'passed' : ''} {STEP_INDEX + 1 == parseInt(step.step) ? 'active' : ''} {parseInt(step.step) > STEP_INDEX ? 'toCome' : ''} ">
-        <p>Step {step.step}</p>
-        <span>{step.short}</span>
+  <div class="steps">
+    <div class="steps-current">
+      <h3>STEPS</h3>
+      <div class="steps-current-numbers">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
       </div>
-      {/if}
-    {/each}
+    </div>
+    <div class="steps-list">
+      <h3>Process 3/6</h3>
+      <p>Lorem ipsum dolor sit amet consectetur, adipsicing elit. </p>
+    </div>
   </div>
-</main>
+</div>
 
 <style>
-.steps {
+
+.biology {
+  width: 100%;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: .2fr .6fr .2fr;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.biology-arms {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: .8fr .2fr;
+  grid-template-columns: .5fr .5fr;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
+}
+
+.biology-arms-item {
+  background-color: green;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: .6rem;
+}
+
+.steps {
+  display: grid;
+  height: 100%;
+  grid-template-rows: .5fr .5fr;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
 }
 
 .steps-current {
-  width: 100%;
-  height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  gap: 25px;
+  font-size: .8rem;
+  background-color: rebeccapurple;
+  border-radius: .6rem;
+  gap: 1rem;
+}
+
+.steps-current h3 {
+  font-size: 1.6rem;
 }
 
 .steps-current p {
-  font-size: 32px;
-  font-weight: 500;
-  color: #a7a7a7;
+  font-size: 1.6rem;
+  border-radius: 100%;
+  background-color: brown;
+  padding: .4rem;
 }
 
-.steps-current button {
-  width: 30%;
-  border-radius: 8px;
-  height: 30px;
-  font-size: 16px;
-  border-radius: 10px;
-  margin-top: 15px;
-  background: rgba(66, 66, 66, 0.41);
-  box-shadow: 4px 4px 4px rgba(218, 137, 247, 0.18);
-  color: white;
-  border: none;
-  outline: none;
-  cursor: pointer;
+.steps-current-numbers {
+  display: flex;
+  flex-direction: row;
+  gap: 1.4rem;
 }
 
 .steps-list {
-  max-width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.steps-list-item {
-  width: 115px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  font-size: .8rem;
+  background-color: rebeccapurple;
+  border-radius: .6rem;
+  gap: 1rem;
 }
 
-.steps-list-item p, span {
-  color: #5d5d5d
+.steps-list h3 {
+  font-size: 1.6rem;
 }
 
-.toCome p {
-  color: rgb(74,74,74);
-  text-decoration: none;
+.steps-list p {
+  font-size: 1.2rem;
 }
-
-.toCome span {
-  color: rgb(74, 74, 74);
-  text-decoration: none;
-}
-
-.active p{
-  text-decoration: none;
-  color: #8f8f8f;
-}
-
-.active span{
-  text-decoration: none;
-  color: #8f8f8f;
-}
-
-.passed p, span{
-  text-decoration: line-through;
-  color: rgb(80, 80, 80);
-}
-
 
 </style>
