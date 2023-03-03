@@ -60,7 +60,9 @@
     {/if}
     {#each buttons as btn}
       {#if btn.active}
-        <div class="cameras-item">Camera {btn.cam}</div>
+        <div class="cameras-item">
+          <iframe src="192.168.1.10:8000"/>
+          </div>
       {/if} 
     {/each}
     <div class="controls">
@@ -70,28 +72,6 @@
   </div>
   {#if Status[current_screen] == "HOME"}
   <div class="utils">
-    <div class="settings">
-      <div class="settings-item battery">
-        <h1>Battery</h1>
-        <p>100%</p>
-        <img src="/energy.svg" />
-      </div>
-      <div class="settings-item signal">
-        <h1>Signal</h1>
-        <p>98%</p>
-        <img src="signal.svg"/>
-      </div>
-      <div class="settings-item process">
-        <h1>Crashed Processes</h1>
-        <p>0</p>
-        <img src="alarm.svg"/>
-      </div>
-      <div class="settings-item sensor">
-        <h1>Connected Sensors</h1>
-        <p>5/8</p>
-        <img src="processor.svg"/>
-      </div>
-    </div>
     <div class="missions">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="missions-item" on:click={handleScreen}>
@@ -106,9 +86,31 @@
         <h1>Delivery</h1>
       </div>
     </div>
+    <div class="settings">
+      <div class="settings-item battery">
+        <img src="/energy.svg" />
+      <h1>Battery</h1>
+      <p>100%</p>
+    </div>
+    <div class="settings-item signal">
+      <img src="signal.svg"/>
+      <h1>Signal</h1>
+      <p>98%</p>
+    </div>
+    <div class="settings-item process">
+      <img src="alarm.svg"/>
+      <h1>Processes</h1>
+      <p>0</p>
+    </div>
+    <div class="settings-item sensor">
+      <img src="processor.svg"/>
+      <h1>Sensors</h1>
+      <p>5/8</p>
+    </div>
   </div>
+</div>
   {:else if Status[current_screen] == "AUTONOMY"}
-    <AutonomousPage />
+  <AutonomousPage />
   {:else if Status[current_screen] == "BIOLOGY"}
     <BiologyPage />
   {:else if Status[current_screen] == "DELIVERY"}
@@ -129,7 +131,7 @@
 
   .cameras {
     width: 100vw;
-    height: 60vh;
+    height: 70vh;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -146,6 +148,7 @@
   .home-btn img {
     width: 2.8rem;
     cursor: pointer;
+    filter: invert(83%) sepia(0%) saturate(187%) hue-rotate(191deg) brightness(100%) contrast(92%);
   }
 
   .controls {
@@ -162,7 +165,7 @@
   }
 
   .controls-item {
-    background-color: green;
+    background-color: #d9d9d9;
     width: 100%;
     height: 100%;
     display: flex;
@@ -187,7 +190,7 @@
   }
   
   .arms > div {
-    background-color: green;
+    background-color: #d9d9d9d9;
     border: 1px solid black;
     height: 100%;
     width: 100%;
@@ -197,21 +200,27 @@
   .cameras-item {
     width: 100%;
     height: 100%;
-    background-color: red;
+    background-color: #1f1f1f;
     border: 1px black solid;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #cccccc;
+  }
+
+  .cameras-item iframe {
+    width: 100%;
+    height: 100%;
   }
 
   .utils {
     width: 90%;
-    height: 30vh;
+    height: 20vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+
   }
 
   .settings {
@@ -223,10 +232,11 @@
 
   .settings-item {
     display: flex;
-    flex-direction: column;
+    height: 4rem;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: blue;
+    background-color: #222222;
     border-radius: .8rem;
     gap: .6rem;
     cursor: pointer;
@@ -234,12 +244,14 @@
 
   .settings-item h1 {
     font-size: 1.6rem;
-    font-weight: 600;
+    font-weight: 500;
+    color: #cccccc;
   }
 
   .settings-item p {
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 500;
+    color: #cccccc;
   }
 
   .settings-item img {
@@ -278,13 +290,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: blue;
+    background-color: #222222;
     border-radius: .8rem;
     cursor: pointer;
   }
-
+  
   .missions-item h1 {
     font-size: 1.4rem;
+    color: #cccccc;
   }
 
 </style>

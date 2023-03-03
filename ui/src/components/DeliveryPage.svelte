@@ -57,14 +57,15 @@
     align-items: center;
     gap: 2rem;
   }
-
+  
   .biology-arms-item {
-    background-color: green;
+    background-color: #222222;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #cccccc;
     border-radius: .6rem;
   }
 

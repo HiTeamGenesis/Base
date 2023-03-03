@@ -56,17 +56,18 @@
   grid-template-columns: .5fr .5fr;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .biology-arms-item {
-  background-color: green;
+  background-color: #222222;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: .6rem;
+  color: #cccccc;
 }
 
 .steps {
@@ -76,7 +77,7 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .steps-current {
@@ -88,19 +89,22 @@
   justify-content: center;
   align-items: center;
   font-size: .8rem;
-  background-color: rebeccapurple;
+  background-color: #222222;
   border-radius: .6rem;
   gap: 1rem;
 }
 
 .steps-current h3 {
   font-size: 1.6rem;
+  color: #cccccc;
+  font-weight: 500;
 }
 
 .steps-current p {
   font-size: 1.6rem;
+  color: #cccccc;
   border-radius: 100%;
-  background-color: brown;
+  background-color: #4d4d4d;
   padding: .4rem;
 }
 
@@ -119,17 +123,19 @@
   justify-content: center;
   align-items: center;
   font-size: .8rem;
-  background-color: rebeccapurple;
+  background-color: #222222;
   border-radius: .6rem;
   gap: 1rem;
 }
 
 .steps-list h3 {
   font-size: 1.6rem;
+  color: #cccccc;
 }
 
 .steps-list p {
   font-size: 1.2rem;
+  color: #cccccc;
 }
 
 </style>
