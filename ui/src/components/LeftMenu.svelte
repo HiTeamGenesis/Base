@@ -88,11 +88,12 @@
     justify-content: center;
     align-items: center;
     gap: 3rem;
-    border: 1px solid black;
+    background-color: #222222;
     padding: 2rem;
     border-radius: .6rem;
   }
 
+  
   .indicators-item {
     display: flex;
     flex-direction: column;
@@ -101,9 +102,10 @@
     border-radius: .8rem;
     gap: .6rem;
   }
-
+  
   .indicators-item p {
     font-size: 1.4rem;
+    color: #cccccc;
   }
   
   .indicators-item img {
@@ -137,13 +139,17 @@
 
   .missions-btn-item {
     width: 100%;
-    height: 2.4rem;
-    background-color: blue;
+    height: 3rem;
+    background-color: #222222;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: .6rem;
     cursor: pointer;
+  }
+  
+  .missions-btn-item p {
+    color: #cccccc;
   }
 
 </style>
